@@ -143,8 +143,8 @@ namespace WindowsFormsApp1
             if (MyConnections != null)
             {
                 MyConnections.Parrent = this;
-                if (floor=="") MyConnections.floor = floor + "1";
-                if (Connections==2) MyConnections.floor = floor + "1";
+                ///if (floor=="") MyConnections.floor = floor + "1";
+                if (Connections<=2) MyConnections.floor = floor + "1";
                 if (Connections==3) MyConnections.floor = floor + "a1";
                 if (Connections==4) MyConnections.floor = floor + "b1";
             }
