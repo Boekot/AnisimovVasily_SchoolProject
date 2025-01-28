@@ -52,7 +52,15 @@ namespace WindowsFormsApp1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-          
+            foreach (CH4Button v in CH4.ToArray())
+            {
+                if (v.removed == true)
+                {
+                    CH4.Remove(v);
+                    panel1.Controls.Remove(v);
+                }
+
+            }
         }
 
 

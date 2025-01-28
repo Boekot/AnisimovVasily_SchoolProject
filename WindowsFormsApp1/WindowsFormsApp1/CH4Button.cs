@@ -17,6 +17,7 @@ namespace WindowsFormsApp1
     {
         Point DownPoint;
         public bool IsDragMode { get; set; } = false;
+        public bool removed { get; set; } = false;
         public int count { get; set; } = 0;
         public List<CH4Button> CreatedCH4 { get; set; } = null;
         public CH4Button Parrent { get; set; } = null;
@@ -26,6 +27,7 @@ namespace WindowsFormsApp1
         public string floor = "";
         private List<int> len = new List<int>();
         private List<Point> NearPar = new List<Point>();
+        private Panel ConnectionLine = null;
 
         protected override void CreateHandle()
         {
@@ -38,6 +40,14 @@ namespace WindowsFormsApp1
         {
             DownPoint = mevent.Location;
             if (count == 0) IsDragMode = true;
+            if ((count == 1) & (Connections == 1))
+            {
+                removed = true;
+                Parrent.Connections = Parrent.Connections - 1;
+                Parrent.Text = GetText(Parrent.Connections);
+                Parrent.Invalidate();
+                panel1.Controls.Remove(ConnectionLine);
+            }
             base.OnMouseDown(mevent);
             count++;
         }
@@ -103,6 +113,7 @@ namespace WindowsFormsApp1
                 Line.Location = new Point(-10 + It.Location.X, 18 + It.Location.Y);
                 Line.BackColor=Color.Black;
                 panel1.Controls.Add(Line);
+                ConnectionLine = Line;
             }
             if (angle == 1)
             {
@@ -111,6 +122,7 @@ namespace WindowsFormsApp1
                 Line.Location = new Point(40 + It.Location.X, 18 + It.Location.Y);
                 Line.BackColor=Color.Black;
                 panel1.Controls.Add(Line);
+                ConnectionLine = Line;
             }
             if (angle == 2)
             {
@@ -119,6 +131,7 @@ namespace WindowsFormsApp1
                 Line.Location = new Point(18 + It.Location.X, -10 + It.Location.Y);
                 Line.BackColor=Color.Black;
                 panel1.Controls.Add(Line);
+                ConnectionLine = Line;
             }
             if (angle == 3) 
             { 
@@ -126,7 +139,8 @@ namespace WindowsFormsApp1
                 Line.Size = new Size(4, 10); 
                 Line.Location = new Point(18 + It.Location.X, 40 + It.Location.Y); 
                 Line.BackColor=Color.Black; 
-                panel1.Controls.Add(Line); 
+                panel1.Controls.Add(Line);
+                ConnectionLine = Line;
             }
         }
 
