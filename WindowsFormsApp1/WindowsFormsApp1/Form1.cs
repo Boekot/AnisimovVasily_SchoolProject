@@ -32,22 +32,30 @@ namespace WindowsFormsApp1
 
         private void CreateCH4_Click(object sender, EventArgs e)
         {
-            //Создание остальных элементов при нажатии на кнопку
-            CH4Button CH4Button = new CH4Button();
-            CH4Button.Location = new Point(0, 0);
-            CH4Button.CreatedCH4 = CH4;
-            CH4Button.panel1 = panel1;
-            panel1.Controls.Add(CH4Button);
-            CH4.Add(CH4Button);
-
-            //Вывод дебаг информации
-            foreach(CH4Button v in CH4)
-            {
-                Debug.Write("Connections: " + v.Connections + "; ");
-                Debug.Write("Floor: " + v.floor + "; ");
-                Debug.WriteLine(v.Parrent);
+            var tbool = true;
+            foreach (CH4Button v in CH4.ToArray())
+            { 
+                if (v.floor == "") { tbool = false; }
             }
-            Debug.WriteLine("-------------------");
+            if (tbool)
+            {
+                //Создание остальных элементов при нажатии на кнопку
+                CH4Button CH4Button = new CH4Button();
+                CH4Button.Location = new Point(0, 0);
+                CH4Button.CreatedCH4 = CH4;
+                CH4Button.panel1 = panel1;
+                panel1.Controls.Add(CH4Button);
+                CH4.Add(CH4Button);
+
+                //Вывод дебаг информации
+                foreach (CH4Button v in CH4)
+                {
+                    Debug.Write("Connections: " + v.Connections + "; ");
+                    Debug.Write("Floor: " + v.floor + "; ");
+                    Debug.WriteLine(v.Parrent);
+                }
+                Debug.WriteLine("-------------------");
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -178,6 +186,15 @@ namespace WindowsFormsApp1
             List<int> Propil = new List<int>();
             List<int> Butil = new List<int>();
             List<int> Pentil = new List<int>();
+            List<string> Rnum = new List<string>();
+
+            Rnum.Add("");
+            Rnum.Add("ди");
+            Rnum.Add("три");
+            Rnum.Add("тетра");
+            Rnum.Add("пента");
+            Rnum.Add("гекса");
+
 
 
             for (int i = 0; i < (Radicals.Count)/2; i++)
@@ -189,11 +206,11 @@ namespace WindowsFormsApp1
                 if (Radicals[i*2] == 5) Pentil.Add(Radicals[i*2+1]);
             }
 
-            if (Butil.Count > 0) Text += string.Join(",", Butil) + "-бутил-";
-            if (Metil.Count > 0) Text += string.Join(",", Metil) + "-метил-";
-            if (Pentil.Count > 0) Text += string.Join(",", Pentil) + "-пентил-";
-            if (Propil.Count > 0) Text += string.Join(",", Propil) + "-пропил-";
-            if (Ethil.Count > 0) Text += string.Join(",", Ethil) + "-этил-";
+            if (Butil.Count > 0) Text += string.Join(",", Butil) + "-" + Rnum[Butil.Count-1] + "бутил-";
+            if (Metil.Count > 0) Text += string.Join(",", Metil) + "-" + Rnum[Metil.Count-1] + "метил-";
+            if (Pentil.Count > 0) Text += string.Join(",", Pentil) + "-" + Rnum[Pentil.Count-1] + "пентил-";
+            if (Propil.Count > 0) Text += string.Join(",", Propil) + "-" + Rnum[Propil.Count-1] + "пропил-";
+            if (Ethil.Count > 0) Text += string.Join(",", Ethil) + "-" + Rnum[Ethil.Count-1] + "этил-";
             Text += TextBase;
 
             textBox1.Text = Text;
