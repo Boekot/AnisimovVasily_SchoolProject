@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
         public int Connections = 0;
         public CH4Button MyConnections { get; set; } = null;
         public Panel panel1 { get; set; } = null;
-        public string floor = "";
+        public int floor = 0;
         private List<int> len = new List<int>();
         private List<Point> NearPar = new List<Point>();
         private Panel ConnectionLine = null;
@@ -40,7 +40,7 @@ namespace WindowsFormsApp1
         {
             DownPoint = mevent.Location;
             if (count == 0) IsDragMode = true;
-            if ((count == 1) & (Connections == 1))
+            if ((count >= 1) & (Connections == 1))
             {
                 removed = true;
                 Parrent.Connections = Parrent.Connections - 1;
@@ -154,13 +154,19 @@ namespace WindowsFormsApp1
         protected override void OnInvalidated(InvalidateEventArgs e) //Заготовка по будущую систему индексации
         {
             base.OnInvalidated(e);
-            if (MyConnections != null)
+            if (this.Parrent != null)
             {
+                //this.floor = this.Parrent.floor+1;
+
+                /*
                 MyConnections.Parrent = this;
-                ///if (floor=="") MyConnections.floor = floor + "1";
+                MyConnections.floor = this.floor + 1;
+                MyConnections.Invalidate();
+                if (floor=="") MyConnections.floor = floor + "1";
                 if (Connections<=2) MyConnections.floor = floor + "1";
                 if (Connections==3) MyConnections.floor = floor + "a1";
                 if (Connections==4) MyConnections.floor = floor + "b1";
+                */
             }
         }
 
