@@ -26,6 +26,7 @@ namespace WindowsFormsApp1
             CH4Button.count = 2;
             CH4Button.floor = 1;
             CH4Button.panel1 = panel1;
+            CH4Button.canbedel = false;
             panel1.Controls.Add(CH4Button);
             CH4.Add(CH4Button);
         }

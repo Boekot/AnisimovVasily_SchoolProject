@@ -28,6 +28,7 @@ namespace WindowsFormsApp1
         private List<int> len = new List<int>();
         private List<Point> NearPar = new List<Point>();
         public Panel ConnectionLine = null;
+        public bool canbedel = true;
 
         protected override void CreateHandle()
         {
@@ -40,7 +41,7 @@ namespace WindowsFormsApp1
         {
             DownPoint = mevent.Location;
             if (count == 0) IsDragMode = true;
-            if ((count >= 1) & (Connections == 1))
+            if ((count >= 1) & (Connections == 1) & canbedel)
             {
                 removed = true;
                 Parrent.Connections = Parrent.Connections - 1;

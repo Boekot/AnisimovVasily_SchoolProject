@@ -8,3 +8,7 @@ C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\Win
 C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\SchoolProject.csproj.CoreCompileInputs.cache
 C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.manifest
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.application
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe.manifest
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.application

@@ -1,0 +1,14 @@
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe.config
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe.manifest
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\bin\Release\WindowsFormsApp1.application
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\bin\Release\WindowsFormsApp1.pdb
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\SchoolProject.csproj.AssemblyReference.cache
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Form1.resources
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\SchoolProject.csproj.GenerateResource.cache
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\SchoolProject.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.exe.manifest
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.application
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.exe
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.pdb
