@@ -27,7 +27,7 @@ namespace WindowsFormsApp1
         public int floor = 0;
         private List<int> len = new List<int>();
         private List<Point> NearPar = new List<Point>();
-        private Panel ConnectionLine = null;
+        public Panel ConnectionLine = null;
 
         protected override void CreateHandle()
         {

@@ -120,6 +120,28 @@
   <metadata name="textBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
+        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAAOwoAADsKATNLJpEAAAAHdElNRQfpAwQQNg3e1kPVAAAA
+        GXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAxVJREFUWEe9l9nLDWEcx499z5p9z5Il
+        LkQkS9ZkSbiQC9ygLIkIWUPZ4kZZimRJylrWInuEf0BygVuX7tzw+YyZ3pl555wzx3vO+61PZ54588zz
+        e57ntzxTCNUCWuXA56quNXAT7ubgFmyG9lA1fYNNMB8WlmE5PIOtkKX+MA8WQVb/CP+fC72g8BX6eZFT
+        S+EeNAtadZoCr+Ex+H8pXM3n8BQCAwZ6kVOz4DMchUOwG+x/HXaCvtKyDM1hBLj6FRvQHbbBgZAdMBSe
+        wDTIK8d07IQB42AfOLNiHAQH3h/jGHyBqZBXCQMGQCdwTy6Ag2QNXozDsB16QF4lDNB7NeJN+NsYyjRA
+        Lx4EjaGaGKB3GwVNg1ZpVc0A88Ek0A/MlA/AkDRShkMxVcWArnASPsFpWAmLYR1chY9gljX202qwAUbN
+        NXDWI72RktswA97CXkhnzgYbYAa8D92CVnGNgQ+wIGjVKdMArU0bYDsd33Z+D5ODVlLOvEv4G2kjmP/b
+        Bq1/Shjg4A5yEYIKFco9tmich/hZwKpoUdHj0+oDVyB6j4boJ7/gDHQAlTDAhg8OBkMp0gr4DT9hvDdC
+        7QFfmiWfcyvjW7MF/oBZNnp/vRXQqXaByxfJMn0K3Jr4Nhh2kiXPCpchvgWu5BGwAkbKtQJqCLyD6UGr
+        tPQljfXQUU71ViDLByKtB+vE2KCVLfvfAPc5K+7TShhQKgqULzTsDKcNYOc20Bp6wjLwqHYJyoVlpEwD
+        SuUBt8hz4x1wSzx6PQRXxjK+FtpBXlVsQCRnPQo8fJpcPMR0hEr13wZUSwkD+oJGNKYB1o/vXvyA2WC4
+        vYJqGaDPmHp10tHgaXoVmMTOgk5rNg3quDV8DryASgwwPZvA7DMBLMWW3+NgOX4EL0O89p4H2OhDKIgY
+        y6QXw8AViH+kNAFnYYzreDPBmm9IGu+3wQiwnzMyQs6Bs3S2Pm8/V8H3+L6i6g1WOL/9TDxaalEx1KJZ
+        GHqeAU6Azy2BiWAG7Qx5ElBRuRLRh6qz8BCxGvQP99AMaZzHc3xNlK4FNVSh8Bck8MLQHPavLQAAAABJ
+        RU5ErkJggg==
+</value>
+  </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

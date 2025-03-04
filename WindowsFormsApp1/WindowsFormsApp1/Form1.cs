@@ -22,7 +22,7 @@ namespace WindowsFormsApp1
 
             //Создание начального элемента
             CH4Button CH4Button = new CH4Button();
-            CH4Button.Location = new Point(panel1.Width/2,panel1.Height/2);
+            CH4Button.Location = new Point(panel1.Width/2, panel1.Height/2);
             CH4Button.count = 2;
             CH4Button.floor = 1;
             CH4Button.panel1 = panel1;
@@ -34,7 +34,7 @@ namespace WindowsFormsApp1
         {
             var tbool = true;
             foreach (CH4Button v in CH4.ToArray())
-            { 
+            {
                 if (v.floor == 0) { tbool = false; }
             }
             if (tbool)
@@ -57,22 +57,224 @@ namespace WindowsFormsApp1
                 Debug.WriteLine("-------------------");
             }
         }
-
+        int countCH4 = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
+            int nopar = 0;
             foreach (CH4Button v in CH4.ToArray())
             {
                 if (v.removed == true)
                 {
                     CH4.Remove(v);
+                    panel1.Controls.Remove(v.ConnectionLine);
                     panel1.Controls.Remove(v);
+                }
+                if (v.Parrent == null) { nopar++; }
+            }
+            if (nopar == 1)
+            {
+                if (CH4.ToArray().Length!=countCH4)
+                {
+                    countCH4 = CH4.ToArray().Length;
+                    namechain(CH4);
                 }
             }
         }
 
 
+        private static List<CH4Button> findmaxchain(List<CH4Button> TempCH4)
+        {
+            //Находим все возможные концы цепи
+            List<CH4Button> PosEnds = new List<CH4Button>();
+            foreach (CH4Button v in TempCH4)
+            {
+                if (v.Connections == 1)
+                {
+                    PosEnds.Add(v);
+                }
+            }
 
-        private void button1_Click(object sender, EventArgs e)
+            CH4Button prevfloor1 = new CH4Button();
+            foreach (CH4Button v in TempCH4)
+            {
+                if (v.floor == 1) { prevfloor1 = v; }
+            }
+
+            ///Считаем самую длинную цепь
+            int maxlen = 0;
+            CH4Button maxlenel1 = new CH4Button();
+            CH4Button maxlenel2 = new CH4Button();
+            CH4Button maxlenelconto = new CH4Button();
+            foreach (CH4Button v in PosEnds)
+            {
+                List<CH4Button> TempCH4_2 = new List<CH4Button>();
+                foreach (CH4Button v1 in TempCH4)
+                {
+                    TempCH4_2.Add(v1);
+                }
+
+                CH4Button TempButtton2 = v;
+                while (TempButtton2.floor != 1)
+                {
+                    TempCH4_2.Remove(TempButtton2);
+                    TempButtton2 = TempButtton2.Parrent;
+                }
+                TempCH4_2.Remove(TempButtton2);
+
+                //Для каждой пары точек концов ищем с максимальным кол-вом элементов между ними
+                foreach (CH4Button v2 in PosEnds)
+                {
+                    if (v2 != v)
+                    {
+                        int ConnectedToFloor = 0;
+                        CH4Button ConnectedToElement = new CH4Button();
+                        TempButtton2 = v2;
+                        while (TempButtton2.floor != 1)
+                        {
+                            Debug.WriteLine(TempCH4_2.Contains(TempButtton2).ToString());
+                            if (!TempCH4_2.Contains(TempButtton2))
+                            {
+                                ConnectedToFloor = TempButtton2.floor;
+                                ConnectedToElement = TempButtton2;
+                                break;
+                            }
+                            else
+                            {
+                                Debug.WriteLine("Tryed to remove TempButton from TempCH4_2");
+                                TempCH4_2.Remove(TempButtton2);
+                                TempButtton2 = TempButtton2.Parrent;
+                            }
+                        }
+                        if (ConnectedToFloor == 0) { ConnectedToFloor++; ConnectedToElement = TempButtton2; }
+                        Debug.WriteLine("------");
+                        Debug.WriteLine("Max len: " + maxlen);
+                        Debug.WriteLine("MB max len: " + (v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1));
+                        if ((v == prevfloor1) ^ (v2 == prevfloor1)) { Debug.WriteLine("Конец равен предыдущему!!"); }
+                        Debug.WriteLine("------");
+                        if (maxlen < (v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1))
+                        {
+                            maxlen = v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1;
+                            maxlenel1 = v;
+                            maxlenel2 = v2;
+                            maxlenelconto = ConnectedToElement;
+                            Debug.WriteLine("Изменение концов!!!!!");
+                            Debug.WriteLine("Connected to floor: " + ConnectedToFloor);
+                        }
+                    }
+                }
+            }
+
+            //Записываем ответ в список
+            List<CH4Button> ans = new List<CH4Button>();
+            ans.Add(maxlenel1);
+            ans.Add(maxlenel2);
+            ans.Add(maxlenelconto);
+            return (ans);
+        }
+
+        private static List<CH4Button> fingendbeg(List<CH4Button> FromFunction)
+        {
+            CH4Button maxlenel1 = FromFunction[0];
+            CH4Button maxlenel2 = FromFunction[0];
+            CH4Button maxlenelconto = FromFunction[0];
+            Debug.WriteLine("Концы найдены, начинаем пересчет");
+            maxlenel1.Invalidate();
+            maxlenel2.Invalidate();
+            maxlenelconto.Invalidate();
+            int torad1 = 0;
+            int torad2 = 0;
+            CH4Button TempButtton6 = maxlenel1;
+            if (maxlenel1.Parrent!=null)
+            {
+                TempButtton6 = maxlenel1;
+                while (TempButtton6.Connections < 3)
+                {
+                    torad1++;
+                    TempButtton6 = TempButtton6.Parrent;
+                    if (TempButtton6==null) { break; }
+                }
+                torad1++;
+            }
+            else
+            {
+                TempButtton6 = maxlenel2;
+                torad1 = maxlenel2.floor;
+                while (TempButtton6.Connections < 3)
+                {
+                    torad1--;
+                    TempButtton6 = TempButtton6.Parrent;
+                    if (TempButtton6==null) { break; }
+                }
+            }
+            if (maxlenel2.Parrent!=null)
+            {
+                TempButtton6 = maxlenel2;
+                while (TempButtton6.Connections < 3)
+                {
+                    torad2++;
+                    TempButtton6 = TempButtton6.Parrent;
+                    if (TempButtton6==null) { break; }
+                }
+                torad2++;
+            }
+            else
+            {
+                TempButtton6 = maxlenel1;
+                torad2 = maxlenel1.floor;
+                while (TempButtton6.Connections < 3)
+                {
+                    torad2--;
+                    TempButtton6 = TempButtton6.Parrent;
+                    if (TempButtton6==null) { break; }
+                }
+            }
+            if (torad1 >= torad2)
+            {
+                TempButtton6 = maxlenel1;
+                maxlenel1 = maxlenel2;
+                maxlenel2 = TempButtton6;
+            }
+            ///Перенаправляем цепь с предыдущего надала до точки соединения
+            CH4Button TempButtton3 = maxlenelconto;
+            CH4Button TempButtton4 = maxlenelconto.Parrent;
+            TempButtton3.Parrent = null;
+            if (TempButtton4 != null)
+            {
+                while (TempButtton4.floor != 1)
+                {
+                    CH4Button TempButtton5 = TempButtton4.Parrent;
+                    TempButtton4.Parrent = TempButtton3;
+                    TempButtton3 = TempButtton4;
+                    TempButtton4 = TempButtton5;
+                    Debug.WriteLine("TempB4: " + TempButtton4.floor);
+                    Debug.WriteLine("TempB3.par: " + TempButtton3.Parrent);
+                }
+                TempButtton4.Parrent = TempButtton3;
+            }
+            Debug.WriteLine("Пересчет цепи начало->точка соединения законен.");
+            ///Перенаправляем цепь с точки соединения до начала
+            while (maxlenel1.Parrent != null)
+            {
+                TempButtton3 = maxlenel1;
+                TempButtton4 = null;
+
+                while (TempButtton3.Parrent != null)
+                {
+                    TempButtton4 = TempButtton3;
+                    TempButtton3 = TempButtton3.Parrent;
+                }
+                TempButtton3.Parrent = TempButtton4;
+                TempButtton4.Parrent = null;
+            }
+            //Записываем ответ в список
+            List<CH4Button> ans = new List<CH4Button>();
+            ans.Add(maxlenel1);
+            ans.Add(maxlenel2);
+            ans.Add(maxlenelconto);
+            return (ans);
+        }
+
+        private void namechain(List<CH4Button> CH4)
         {
             for (int ii = 0; ii < 10; ii++)
             {
@@ -84,181 +286,16 @@ namespace WindowsFormsApp1
                 foreach (CH4Button v in CH4)
                 {
                     TempCH4.Add(v);
-                    v.BackColor = Color.White;
                     v.Invalidate();
                 }
 
+                List<CH4Button> FromFunction = new List<CH4Button>();
+                FromFunction = findmaxchain(TempCH4);
+                FromFunction = fingendbeg(FromFunction);
+                CH4Button maxlenel1 = FromFunction[0];
+                CH4Button maxlenel2 = FromFunction[0];
+                CH4Button maxlenelconto = FromFunction[0];
 
-                List<CH4Button> PosEnds = new List<CH4Button>();
-                foreach (CH4Button v in TempCH4)
-                {
-                    if (v.Connections == 1)
-                    {
-                        PosEnds.Add(v);
-                    }
-                }
-
-                CH4Button prevfloor1 = new CH4Button();
-                foreach (CH4Button v in TempCH4)
-                {
-                    if (v.floor == 1) { prevfloor1 = v; }
-                }
-
-                ///Считаем самую длинную цепь
-                int maxlen = 0;
-                CH4Button maxlenel1 = new CH4Button();
-                CH4Button maxlenel2 = new CH4Button();
-                CH4Button maxlenelconto = new CH4Button();
-                foreach (CH4Button v in PosEnds)
-                {
-                    List<CH4Button> TempCH4_2 = new List<CH4Button>();
-                    foreach (CH4Button v1 in TempCH4)
-                    {
-                        TempCH4_2.Add(v1);
-                    }
-
-                    CH4Button TempButtton2 = v;
-                    while (TempButtton2.floor != 1)
-                    {
-                        TempCH4_2.Remove(TempButtton2);
-                        TempButtton2 = TempButtton2.Parrent;
-                    }
-                    TempCH4_2.Remove(TempButtton2);
-
-
-                    foreach (CH4Button v2 in PosEnds)
-                    {
-                        if (v2 != v)
-                        {
-                            int ConnectedToFloor = 0;
-                            CH4Button ConnectedToElement = new CH4Button();
-                            TempButtton2 = v2;
-                            while (TempButtton2.floor != 1)
-                            {
-                                Debug.WriteLine(TempCH4_2.Contains(TempButtton2).ToString());
-                                if (!TempCH4_2.Contains(TempButtton2))
-                                {
-                                    ConnectedToFloor = TempButtton2.floor;
-                                    ConnectedToElement = TempButtton2;
-                                    break;
-                                }
-                                else
-                                {
-                                    Debug.WriteLine("Tryed to remove TempButton from TempCH4_2");
-                                    TempCH4_2.Remove(TempButtton2);
-                                    TempButtton2 = TempButtton2.Parrent;
-                                }
-                            }
-                            if (ConnectedToFloor == 0) { ConnectedToFloor++; ConnectedToElement = TempButtton2; }
-                            Debug.WriteLine("------");
-                            Debug.WriteLine("Max len: " + maxlen);
-                            Debug.WriteLine("MB max len: " + (v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1));
-                            if ((v == prevfloor1) ^ (v2 == prevfloor1)) { Debug.WriteLine("Конец равен предыдущему!!"); }
-                            Debug.WriteLine("------");
-                            if (maxlen < (v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1))
-                            {
-                                maxlen = v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1;
-                                maxlenel1 = v;
-                                maxlenel2 = v2;
-                                maxlenelconto = ConnectedToElement;
-                                Debug.WriteLine("Изменение концов!!!!!");
-                                Debug.WriteLine("Connected to floor: " + ConnectedToFloor);
-                            }
-                        }
-                    }
-                }
-                Debug.WriteLine("Концы найдены, начинаем пересчет");
-                maxlenel1.BackColor = Color.Olive;
-                maxlenel2.BackColor = Color.Pink;
-                maxlenelconto.BackColor= Color.Yellow;
-                maxlenel1.Invalidate();
-                maxlenel2.Invalidate();
-                maxlenelconto.Invalidate();
-                int torad1 = 0;
-                int torad2 = 0;
-                CH4Button TempButtton6 = maxlenel1;
-                if (maxlenel1.Parrent!=null)
-                {
-                    TempButtton6 = maxlenel1;
-                    while (TempButtton6.Connections < 3)
-                    {
-                        torad1++;
-                        TempButtton6 = TempButtton6.Parrent;
-                        if (TempButtton6==null) { break; }
-                    }
-                    torad1++;
-                }
-                else
-                {
-                    TempButtton6 = maxlenel2;
-                    torad1 = maxlenel2.floor;
-                    while (TempButtton6.Connections < 3)
-                    {
-                        torad1--;
-                        TempButtton6 = TempButtton6.Parrent;
-                        if (TempButtton6==null) { break; }
-                    }
-                }
-                if (maxlenel2.Parrent!=null)
-                {
-                    TempButtton6 = maxlenel2;
-                    while (TempButtton6.Connections < 3)
-                    {
-                        torad2++;
-                        TempButtton6 = TempButtton6.Parrent;
-                        if (TempButtton6==null) { break; }
-                    }
-                    torad2++;
-                }
-                else
-                {
-                    TempButtton6 = maxlenel1;
-                    torad2 = maxlenel1.floor;
-                    while (TempButtton6.Connections < 3)
-                    {
-                        torad2--;
-                        TempButtton6 = TempButtton6.Parrent;
-                        if (TempButtton6==null) { break; }
-                    }
-                }
-                if (torad1 >= torad2)
-                {
-                    TempButtton6 = maxlenel1;
-                    maxlenel1 = maxlenel2;
-                    maxlenel2 = TempButtton6;
-                }
-                ///Перенаправляем цепь с предыдущего надала до точки соединения
-                CH4Button TempButtton3 = maxlenelconto;
-                CH4Button TempButtton4 = maxlenelconto.Parrent;
-                TempButtton3.Parrent = null;
-                if (TempButtton4 != null)
-                {
-                    while (TempButtton4.floor != 1)
-                    {
-                        CH4Button TempButtton5 = TempButtton4.Parrent;
-                        TempButtton4.Parrent = TempButtton3;
-                        TempButtton3 = TempButtton4;
-                        TempButtton4 = TempButtton5;
-                        Debug.WriteLine("TempB4: " + TempButtton4.floor);
-                        Debug.WriteLine("TempB3.par: " + TempButtton3.Parrent);
-                    }
-                    TempButtton4.Parrent = TempButtton3;
-                }
-                Debug.WriteLine("Пересчет цепи начало->точка соединения законен.");
-                ///Перенаправляем цепь с точки соединения до начала
-                while (maxlenel1.Parrent != null)
-                {
-                    TempButtton3 = maxlenel1;
-                    TempButtton4 = null;
-
-                    while (TempButtton3.Parrent != null)
-                    {
-                        TempButtton4 = TempButtton3;
-                        TempButtton3 = TempButtton3.Parrent;
-                    }
-                    TempButtton3.Parrent = TempButtton4;
-                    TempButtton4.Parrent = null;
-                }
 
                 maxlenel1.floor = 1;
                 for (int i = 0; i < CH4.Count(); i++)
@@ -277,9 +314,6 @@ namespace WindowsFormsApp1
                     Debug.WriteLine(v.Parrent);
                 }
                 Debug.WriteLine("-------------------");
-                Debug.Write("Pos ends: " + PosEnds.Count());
-
-
 
                 Debug.Write("Before 1st step: ");
                 Debug.WriteLine(string.Join("; ", TempCH4));
@@ -390,156 +424,19 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string Text = string.Empty;
-            int maxfloor = 0;
-            CH4Button maxfloorEl = new CH4Button();
-            List<CH4Button> TempCH4 = new List<CH4Button>();
-
-            foreach (CH4Button v in CH4)
+            foreach(CH4Button v in CH4)
             {
-                TempCH4.Add(v);
+                v.removed = true;
             }
-
-
-            List<CH4Button> PosEnds = new List<CH4Button>();
-            foreach (CH4Button v in TempCH4)
-            {
-                if (v.Connections == 1)
-                {
-                    PosEnds.Add(v);
-                }
-            }
-
-            CH4Button prevfloor1 = new CH4Button();
-            foreach (CH4Button v in TempCH4)
-            {
-                if (v.floor == 1) { prevfloor1 = v; }
-            }
-
-            ///Считаем самую длинную цепь
-            int maxlen = 0;
-            CH4Button maxlenel1 = new CH4Button();
-            CH4Button maxlenel2 = new CH4Button();
-            CH4Button maxlenelconto = new CH4Button();
-            foreach (CH4Button v in PosEnds)
-            {
-                List<CH4Button> TempCH4_2 = new List<CH4Button>();
-                foreach (CH4Button v1 in TempCH4)
-                {
-                    TempCH4_2.Add(v1);
-                }
-
-                CH4Button TempButtton2 = v;
-                while (TempButtton2.floor != 1)
-                {
-                    TempCH4_2.Remove(TempButtton2);
-                    TempButtton2 = TempButtton2.Parrent;
-                }
-                TempCH4_2.Remove(TempButtton2);
-
-
-                foreach (CH4Button v2 in PosEnds)
-                {
-                    if (v2 != v)
-                    { 
-                        int ConnectedToFloor = 0;
-                        CH4Button ConnectedToElement = new CH4Button();
-                        TempButtton2 = v2;
-                        while (TempButtton2.floor != 1)
-                        {
-                            Debug.WriteLine(TempCH4_2.Contains(TempButtton2).ToString());
-                            if (!TempCH4_2.Contains(TempButtton2))
-                            {
-                                ConnectedToFloor = TempButtton2.floor;
-                                ConnectedToElement = TempButtton2;
-                                break;
-                            }
-                            else
-                            {
-                                Debug.WriteLine("Tryed to remove TempButton from TempCH4_2");
-                                TempCH4_2.Remove(TempButtton2);
-                                TempButtton2 = TempButtton2.Parrent;
-                            }
-                        }
-                        if (ConnectedToFloor == 0) { ConnectedToFloor++; }
-                        Debug.WriteLine("------");
-                        Debug.WriteLine("Max len: " + maxlen);
-                        Debug.WriteLine("MB max len: " + (v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1));
-                        if ((v == prevfloor1) ^ (v2 == prevfloor1)) { Debug.WriteLine("Конец равен предыдущему!!"); }
-                        Debug.WriteLine("------");
-                        if (maxlen < (v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1))
-                        {
-                            maxlen = v.floor-ConnectedToFloor+v2.floor-ConnectedToFloor+1;
-                            maxlenel1 = v;
-                            maxlenel2 = v2;
-                            maxlenelconto = ConnectedToElement;
-                            Debug.WriteLine("Изменение концов!!!!!");
-                            Debug.WriteLine("Connected to floor: " + ConnectedToFloor);
-                        }
-                    }
-                }
-            }
-            ///Перенаправляем цепь с предыдущего надала до точки соединения
-            CH4Button TempButtton3 = maxlenelconto;
-            CH4Button TempButtton4 = maxlenelconto.Parrent;
-            TempButtton3.Parrent = null;
-            if (TempButtton4 != null)
-            {
-                while (TempButtton4.floor != 1)
-                {
-                    TempButtton4.Parrent = TempButtton3;
-                    TempButtton3 = TempButtton4;
-                    TempButtton4 = TempButtton3.Parrent;
-                }
-                TempButtton4.Parrent = TempButtton3;
-            }
-            ///Перенаправляем цепь с точки соединения до начала
-            while (maxlenel1.Parrent != null)
-            {
-                TempButtton3 = maxlenel1;
-                TempButtton4 = null;
-                while (TempButtton3.Parrent != null)
-                {
-                    TempButtton4 = TempButtton3;
-                    TempButtton3 = TempButtton3.Parrent;
-                }
-                TempButtton3.Parrent = TempButtton4;
-                TempButtton4.Parrent = null;
-            }
-
-            maxlenel1.floor = 1;
-            for (int i = 0; i < CH4.Count(); i++)
-            {
-                foreach (CH4Button v in CH4)
-                {
-                    if (v.Parrent != null) { v.floor = v.Parrent.floor + 1; }
-                }
-            }
-
-            foreach (CH4Button v in CH4)
-            {
-                Debug.Write("Connections: " + v.Connections + "; ");
-                Debug.Write("Floor: " + v.floor + "; ");
-                if (v == maxlenel1) { Debug.Write("Является началом цепи!!!"); }
-                Debug.WriteLine(v.Parrent); 
-            }
-            Debug.WriteLine("-------------------");
-            Debug.Write("Pos ends: " + PosEnds.Count());
-
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            foreach (CH4Button v in CH4)
-            {
-                Debug.Write("Connections: " + v.Connections + "; ");
-                Debug.Write("Floor: " + v.floor + "; ");
-                Debug.WriteLine(v.Parrent);
-            }
-            Debug.WriteLine("-------------------");
-
-
+            //Создание начального элемента
+            CH4Button CH4Button = new CH4Button();
+            CH4Button.Location = new Point(panel1.Width/2, panel1.Height/2);
+            CH4Button.count = 2;
+            CH4Button.floor = 1;
+            CH4Button.panel1 = panel1;
+            panel1.Controls.Add(CH4Button);
+            CH4.Add(CH4Button);
+            textBox1.Text = "метан";
         }
     }
 }
