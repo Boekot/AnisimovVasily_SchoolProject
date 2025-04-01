@@ -22,7 +22,6 @@ namespace WindowsFormsApp1
         public List<CH4Button> CreatedCH4 { get; set; } = null;
         public CH4Button Parrent { get; set; } = null;
         public int Connections = 0;
-        public CH4Button MyConnections { get; set; } = null;
         public Panel panel1 { get; set; } = null;
         public int floor = 0;
         private List<int> len = new List<int>();
@@ -98,7 +97,7 @@ namespace WindowsFormsApp1
                 this.Text = GetText(Connections);
                 Parrent.Connections = Parrent.Connections + 1;
                 Parrent.Text = GetText(Parrent.Connections);
-                Parrent.MyConnections = this;
+                ///Parrent.MyConnections = this;
                 Parrent.Invalidate();
                 this.Invalidate();
             }
@@ -180,6 +179,13 @@ namespace WindowsFormsApp1
                 Location = new Point(Location.X + dp.X, Location.Y + dp.Y);
             }
             base.OnMouseMove(mevent);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            this.ResumeLayout(false);
+
         }
     }
 }

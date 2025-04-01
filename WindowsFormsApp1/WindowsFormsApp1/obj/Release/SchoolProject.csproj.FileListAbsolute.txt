@@ -12,3 +12,4 @@ C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\Win
 C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.application
 C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.exe
 C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.pdb
+C:\Users\User\Documents\GitHub\AnisimovVasily_SchoolProject\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.CH4Button.resources
